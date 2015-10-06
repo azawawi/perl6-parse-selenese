@@ -3,11 +3,12 @@
 use v6;
 
 use lib 'lib';
-use Parse::Selenese::Grammar;
+use Parse::Selenese;
 
 my $selenese = "login.selenese".IO.slurp;
 
-if  Parse::Selenese::Grammar.parse($selenese) {
+my $parser = Parse::Selenese.new;
+if $parser.parse($selenese) {
   say "Matches";
 } else {
   say "Fails";
