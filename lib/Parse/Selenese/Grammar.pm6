@@ -47,7 +47,7 @@ grammar Parse::Selenese::Grammar {
   }
   
   token base_url {
-    'http://qa-test:8080/'
+    'http://some-server:3000/'
   }
 
   token command {
