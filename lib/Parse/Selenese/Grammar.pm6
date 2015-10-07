@@ -49,10 +49,6 @@ grammar Parse::Selenese::Grammar {
     'http://some-server:3000/'
   }
 
-  rule commands {
-    <command>*
-  }
-
   token command {
     '<tr>'
     "\n"
