@@ -1,10 +1,11 @@
 
 use v6;
 
+use Parse::Selenese::Actions;
 use Parse::Selenese::Grammar;
 
 class Parse::Selenese {
-  method parse(Str $source) {
-    return Parse::Selenese::Grammar.parse($source);
+  method parse(Str $source, $actions = Parse::Selenese::Actions.new) {
+    return Parse::Selenese::Grammar.parse($source, :actions($actions));
   }
 }
