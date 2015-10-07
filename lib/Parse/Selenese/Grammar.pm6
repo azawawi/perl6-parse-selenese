@@ -15,7 +15,7 @@ grammar Parse::Selenese::Grammar {
     "\n"
     '<link rel="selenium.base" href="' <base_url> '" />'
     "\n"
-    '<title>' .+? '</title>'
+    <title>
     "\n"
     '</head>'
     "\n"
@@ -29,7 +29,7 @@ grammar Parse::Selenese::Grammar {
     "\n"
     '</thead><tbody>'
     "\n"
-    <command>+
+    <commands>
     "\n"
     '</tbody></table>'
     "\n"
@@ -40,13 +40,21 @@ grammar Parse::Selenese::Grammar {
     $
   }
 
+  token title {
+    '<title>' $<value>=.+? '</title>'
+  }
+  
+  token commands {
+    $<value>=(<command>*)
+  }
+
   token profile {
     'http://selenium-ide.openqa.org/profiles/'
     $<value>=('test-case' | 'test-suite')
   }
   
   token base_url {
-    'http://some-server:3000/'
+    $<value>='http://some-server:3000/'
   }
 
   token command {

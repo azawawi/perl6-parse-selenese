@@ -8,8 +8,9 @@ use Parse::Selenese;
 my $selenese = "login.selenese".IO.slurp;
 
 my $parser = Parse::Selenese.new;
-if $parser.parse($selenese) {
-  say "Matches";
+my $result = $parser.parse($selenese);
+if $result {
+  say "Matches with the following results: " ~ $result.ast.perl;
 } else {
   say "Fails";
 }

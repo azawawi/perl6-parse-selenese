@@ -5,31 +5,32 @@ use Parse::Selenese::TestCase;
 use Parse::Selenese::TestSuite;
 
 class Parse::Selenese::Actions {
-  has @commands;
-  has $test;
+
+  my @commands;
 
   method TOP($/) {
-    #say "TOP!";
-    #  say $<profile><value>;
-  }
-  
-  method profile($/) {
-    if $<value> eq 'test-case' {
-      $test = Parse::Selenese::TestCase;
+    my Str $name = ~$<title><value>;
+    my Str $base_url = ~$<base_url><value>;
+    my $test;
+    if $<profile><value> eq 'test-case' {
+      $test = Parse::Selenese::TestCase.new(:name($name), :base_url($base_url));
     } else {
-      $test = Parse::Selenese::TestSuite;
+      $test = Parse::Selenese::TestSuite.new(:name($name), :base_url($base_url));
     }
+
+    $test.commands = @commands;
+
+    make $test;
   }
   
   method command($/) {
-    my $cmd = Parse::Selenese::Command.new(
-      :name(~$<name>),
-      :arg1(~$<arg1>),
-      :arg2(~$<arg2>)
-    );
+    my $cmd = Parse::Selenese::Command.new;
+    $cmd.name = ~$<name>;
+    $cmd.arg1 = ~$<arg1> if $<arg1>.defined;
+    $cmd.arg2 = ~$<arg2> if $<arg2>.defined;
+
+    push @commands, $cmd;
     
-    @commands.push($cmd);
-    
-    say $cmd.name;
+    make $cmd;
   }
 }
