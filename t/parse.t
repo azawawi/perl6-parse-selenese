@@ -56,7 +56,6 @@ use Parse::Selenese;
 
 my $parser = Parse::Selenese.new;
 my $result = $parser.parse($code);
-diag $result.perl;
 ok($result.defined, "Code parsed successfully");
 my $test_case = $result.ast;
 ok($test_case.defined, "Well defined");
@@ -65,7 +64,6 @@ ok($test_case.name eq 'Login', 'Correct title');
 ok($test_case.base_url eq 'http://some-server:3000/', 'Correct base url');
 ok($test_case.commands.elems == $NUM_COMMANDS, "Found 3 commands");
 for 0..$NUM_COMMANDS-1 {
-  diag $_;
   ok($test_case.commands[$_] ~~ Parse::Selenese::Command, "index #$_ is a command");
 }
 
