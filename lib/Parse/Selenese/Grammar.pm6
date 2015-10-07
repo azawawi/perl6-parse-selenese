@@ -41,19 +41,22 @@ grammar Parse::Selenese::Grammar {
   }
 
   token profile {
-    'http://selenium-ide.openqa.org/profiles/test-case'
-    |
-    'http://selenium-ide.openqa.org/profiles/test-suite'
+    'http://selenium-ide.openqa.org/profiles/'
+    $<value>=('test-case' | 'test-suite')
   }
   
   token base_url {
     'http://some-server:3000/'
   }
 
+  rule commands {
+    <command>*
+  }
+
   token command {
     '<tr>'
     "\n"
-    "\t" '<td>' <command_name> '</td>'
+    "\t" '<td>' $<name>=<command_name> '</td>'
     "\n"
     "\t" '<td>' .+? '</td>'
     "\n"
@@ -63,6 +66,10 @@ grammar Parse::Selenese::Grammar {
     "\n"
   }
   
+  token argument {
+    .+?
+  }
+
   token command_name {
       'open'
     | 'type'
