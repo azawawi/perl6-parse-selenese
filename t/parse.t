@@ -4,7 +4,7 @@ use v6;
 use Test;
 use lib 'lib';
 
-my $NUM_COMMANDS = 3;
+my $NUM_COMMANDS = 5;
 
 plan 6 + $NUM_COMMANDS;
 
@@ -62,7 +62,7 @@ ok($test_case.defined, "Well defined");
 ok($test_case ~~ Parse::Selenese::TestCase);
 ok($test_case.name eq 'Login', 'Correct title');
 ok($test_case.base_url eq 'http://some-server:3000/', 'Correct base url');
-ok($test_case.commands.elems == $NUM_COMMANDS, "Found 3 commands");
+ok($test_case.commands.elems == $NUM_COMMANDS, "Found $NUM_COMMANDS commands");
 for 0..$NUM_COMMANDS-1 {
   ok($test_case.commands[$_] ~~ Parse::Selenese::Command, "index #$_ is a command");
 }

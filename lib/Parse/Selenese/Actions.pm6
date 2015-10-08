@@ -26,8 +26,8 @@ class Parse::Selenese::Actions {
   method command($/) {
     my $cmd = Parse::Selenese::Command.new;
     $cmd.name = ~$<name>;
-    $cmd.arg1 = ~$<arg1> if $<arg1>.defined;
-    $cmd.arg2 = ~$<arg2> if $<arg2>.defined;
+    $cmd.arg1 = ~$<target> if $<target>.defined;
+    $cmd.arg2 = ~$<value>  if $<value>.defined;
 
     push @commands, $cmd;
     
