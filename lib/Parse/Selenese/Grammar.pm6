@@ -75,7 +75,23 @@ grammar Parse::Selenese::Grammar {
   }
 
   token command_name {
-      'addLocationStrategy'
+      <immediate_command>
+    | <waitable_command>
+  }
+
+  token immediate_command {
+      'open'
+    | 'selectWindow'
+    | 'chooseCancelOnNextConfirmation'
+    | 'answerOnNextPrompt'
+    | 'close'
+    | 'setContext'
+    | 'setTimeout'
+    | 'selectFrame'
+  }
+
+  token waitable_command {
+    (  'addLocationStrategy'
     | 'addScript'
     | 'addSelection'
     | 'allowNativeXpath'
@@ -89,7 +105,6 @@ grammar Parse::Selenese::Grammar {
     | 'chooseCancelOnNextConfirmation'
     | 'chooseOkOnNextConfirmation'
     | 'click'
-    | 'clickAndWait'
     | 'clickAt'
     | 'close'
     | 'contextMenu'
@@ -138,7 +153,6 @@ grammar Parse::Selenese::Grammar {
     | 'rollup'
     | 'runScript'
     | 'select'
-    | 'selectAndWait'
     | 'selectFrame'
     | 'selectPopUp'
     | 'selectWindow'
@@ -152,7 +166,6 @@ grammar Parse::Selenese::Grammar {
     | 'store'
     | 'submit'
     | 'type'
-    | 'typeAndWait'
     | 'typeKeys'
     | 'uncheck'
     | 'useXpathLibrary'
@@ -217,6 +230,6 @@ grammar Parse::Selenese::Grammar {
     | 'storePromptPresent'
     | 'storeSomethingSelected'
     | 'storeTextPresent'
-    | 'storeVisible'
+    | 'storeVisible' ) 'AndWait'?
   }
 }
