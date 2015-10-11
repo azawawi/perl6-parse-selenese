@@ -5,7 +5,7 @@ use v6;
 use lib 'lib';
 use Parse::Selenese;
 
-my $selenese = "examples/login.selenese".IO.slurp;
+my $selenese = "examples/login.html".IO.slurp;
 
 my $parser = Parse::Selenese.new;
 my $result = $parser.parse($selenese);
