@@ -9,7 +9,15 @@ grammar Parse::Selenese::Grammar {
     '<?xml version="1.0" encoding="UTF-8"?>'
     '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">'
     '<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">'
-    '<head profile="' <profile> '">'
+    [<test_case> | <test_suite>]
+    '</tbody></table>'
+    '</body>'
+    '</html>'
+    $
+  }
+
+  rule test_case {
+    '<head profile="http://selenium-ide.openqa.org/profiles/test-case">'
     '<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />'
     '<link rel="selenium.base" href="' <base_url> '" />'
     <title>
@@ -20,25 +28,35 @@ grammar Parse::Selenese::Grammar {
     '<tr><td rowspan="1" colspan="3">' .+? '</td></tr>'
     '</thead><tbody>'
     <commands>
-    '</tbody></table>'
-    '</body>'
-    '</html>'
-    $
+  }
+
+  rule test_suite {
+    '<head>'
+    '<meta content="text/html; charset=UTF-8" http-equiv="content-type" />'
+    <title>
+    '</head>'
+    '<body>'
+    '<table id="suiteTable" cellpadding="1" cellspacing="1" border="1" class="selenium"><tbody>'
+    '<tr><td><b>Test Suite</b></td></tr>'
+    <test_case_defs>
   }
 
   token title {
     '<title>' $<value>=.+? '</title>'
   }
-  
+
+  rule test_case_defs {
+    <test_case_def>*
+  }
+
+  rule test_case_def {
+    '<tr><td><a href="' $<url>=.*? '">' $<name>=.*? '</a></td></tr>'
+  }
+
   rule commands {
     $<value>=<command>*
   }
 
-  token profile {
-    'http://selenium-ide.openqa.org/profiles/'
-    $<value>=('test-case' | 'test-suite')
-  }
-  
   token base_url {
     $<value>='http://some-server:3000/'
   }
