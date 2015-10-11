@@ -25,7 +25,7 @@ class Parse::Selenese::Actions {
 
   method test_suite($/) {
     my $t             = Parse::Selenese::TestSuite.new;
-    $t.name           = $<name>;
+    $t.name           = ~$<title><value>;
     $t.test_case_defs = @test_case_defs;
     make $t;
   }
