@@ -15,7 +15,6 @@ class Parse::Selenese::Actions {
   }
 
   method test_case($/) {
-    say "test_case!";
     my $t       = Parse::Selenese::TestCase.new;
     $t.name     = ~$<title><value>;
     $t.base_url = ~$<base_url><value>;
