@@ -1,7 +1,4 @@
-Parse::Selenese
-===============
-
-[![Build Status](https://travis-ci.org/azawawi/perl6-parse-selenese.svg?branch=master)](https://travis-ci.org/azawawi/perl6-parse-selenese)
+# Parse::Selenese [![Build Status](https://travis-ci.org/azawawi/perl6-parse-selenese.svg?branch=master)](https://travis-ci.org/azawawi/perl6-parse-selenese)
 
 This is a simple utility to parse Selenese test cases and suites that are
 usually generated from the Selenium IDE.
