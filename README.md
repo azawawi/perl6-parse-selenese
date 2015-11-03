@@ -65,14 +65,18 @@ if $result {
 
 To install it using Panda (a module management tool bundled with Rakudo Star):
 
-    panda update
-    panda install Parse::Selenese
+```
+$ panda update
+$ panda install Parse::Selenese
+```
 
 ## Testing
 
 To run tests:
 
-    prove -e perl6
+```
+$ prove -e "perl6 -Ilib"
+```
 
 ## Author
 
